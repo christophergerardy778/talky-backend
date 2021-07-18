@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: false }))
 
 const server = http.createServer(app);
 
+const mServer = app.listen(3000);
+
 const io = new Server(server, {
     cors: {
         origin: ["http://localhost:4200"],
@@ -24,8 +26,4 @@ const io = new Server(server, {
 });
 
 io.on("connection", SocketHandler)
-
-server.listen(process.env.PORT, () => {
-    clear();
-    console.log("server ready")
-});
+io.listen(mServer);
