@@ -1,3 +1,4 @@
+import http from "http";
 import dotEnv from "dotenv";
 import {Server} from "socket.io";
 import {SocketHandler} from "./application/SocketHandler";
@@ -12,7 +13,8 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
-const server = app.listen(process.env.PORT);
+const server = http.createServer(app);
+const mServer = app.listen(process.env.PORT);
 
 const io = new Server(server, {
     cors: {
@@ -21,4 +23,4 @@ const io = new Server(server, {
 });
 
 io.on("connection", SocketHandler)
-io.listen(server);
+io.listen(mServer);
