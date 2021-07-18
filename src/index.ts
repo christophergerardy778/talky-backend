@@ -2,8 +2,10 @@ import http from "http";
 import dotEnv from "dotenv";
 import {Server} from "socket.io";
 import {SocketHandler} from "./application/SocketHandler";
+import clear from "clear";
 import express from "express";
 import cors from "cors";
+import { ExpressPeerServer } from "peer";
 
 dotEnv.config();
 
@@ -14,11 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
 const server = http.createServer(app);
-const mServer = app.listen(process.env.PORT);
+
+const mServer = app.listen(3000);
 
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:4200"],
+        origin: ["*"],
     }
 });
 
