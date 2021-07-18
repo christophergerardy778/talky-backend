@@ -21,7 +21,7 @@ const mServer = app.listen(3000);
 
 const io = new Server(server, {
     cors: {
-        origin: ["*"],
+        origin: ["http://localhost:4200"],
     }
 });
 
