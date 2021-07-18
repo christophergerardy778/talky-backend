@@ -1,11 +1,8 @@
-import http from "http";
 import dotEnv from "dotenv";
 import {Server} from "socket.io";
 import {SocketHandler} from "./application/SocketHandler";
-import clear from "clear";
 import express from "express";
 import cors from "cors";
-import { ExpressPeerServer } from "peer";
 
 dotEnv.config();
 
@@ -15,9 +12,7 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
-const server = http.createServer(app);
-
-const mServer = app.listen(process.env.PORT);
+const server = app.listen(process.env.PORT);
 
 const io = new Server(server, {
     cors: {
@@ -26,4 +21,4 @@ const io = new Server(server, {
 });
 
 io.on("connection", SocketHandler)
-io.listen(mServer);
+io.listen(server);
