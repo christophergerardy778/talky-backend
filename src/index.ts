@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: false }))
 
 const server = http.createServer(app);
 
-const mServer = app.listen(3000);
+const mServer = app.listen(process.env.PORT);
 
 const io = new Server(server, {
     cors: {
