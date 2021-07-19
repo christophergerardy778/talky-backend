@@ -15,7 +15,7 @@ const app = express();
 const server = new http.Server(app);
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:4200'
+        origin: 'https://talky.vercel.app'
     }
 });
 const peerServer = ExpressPeerServer(server);
