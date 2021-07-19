@@ -7,6 +7,7 @@ import express from "express";
 import cors from "cors";
 import { ExpressPeerServer } from "peer";
 import path from "path";
+import history from "connect-history-api-fallback";
 
 dotEnv.config();
 
@@ -20,6 +21,7 @@ const io = new Server(server, {
 const peerServer = ExpressPeerServer(server);
 
 app.use(cors());
+app.use(history());
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/peerjs', peerServer);
 
