@@ -12,7 +12,11 @@ dotEnv.config();
 
 const app = express();
 const server = new http.Server(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:4200'
+    }
+});
 const peerServer = ExpressPeerServer(server);
 
 app.use(cors());
