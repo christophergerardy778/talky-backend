@@ -21,9 +21,9 @@ const io = new Server(server, {
 const peerServer = ExpressPeerServer(server);
 
 app.use(cors());
-app.use(history());
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/peerjs', peerServer);
+app.use(history());
 
 io.on("connection", SocketHandler);
 
