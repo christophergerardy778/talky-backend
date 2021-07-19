@@ -8,8 +8,7 @@ interface RoomParticipants {
 
 let participants: RoomParticipants[] = [];
 
-export function SocketHandler(socket: Socket) {
-
+export function SocketHandler(socket: Socket) {    
     console.log('Nuevo socket conectado');
 
     socket.on("join-room", (payload: RoomParticipants) => {
@@ -35,14 +34,15 @@ export function SocketHandler(socket: Socket) {
     socket.on("disconnect", () => {
 
         const metadata = participants.find(item => item.socketId === socket.id);
-        
-        socket.broadcast
-            .to(metadata!.roomName)
-            .emit("user-leave", metadata!.peerId);
 
-        participants = participants.filter(item => item.socketId !== socket.id);
+        if (metadata && metadata.roomName) {
+            socket.broadcast
+            .to(metadata.roomName)
+            .emit("user-leave", metadata.peerId);
+            participants = participants.filter(item => item.socketId !== socket.id);
 
-        console.log("Quedan");
-        console.table(participants);        
+            console.log("Quedan");
+            console.table(participants);    
+        }    
     });
 }
